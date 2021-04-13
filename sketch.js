@@ -5,38 +5,43 @@ var m = 1;
 var b = 0;
 var max_X;
 var max_Y;
-var learningRate = 0.00001;
+var learningRate = 0.001;
 
 
 function setup() {
   createCanvas(800, 800);
   background(255);
-
-  input = createInput();
-  buttonOne = createButton('submit');
-  buttonTwo = createButton('submit');
-  reset = createButton('reset');
-
-  input.position(20, 20);
-  buttonTwo.position(170, 20);
-  buttonOne.position(-100, -100);
   
+  input = createInput();
+  input.position(20, 20);
+  
+  //buttonOne = createButton('submit');
+  //buttonOne.position(-100, -100);
+  
+  buttonOne = createButton('submit');
   stroke(0);
   fill(0);
   text("input the limit of your graph as max_X, max_Y", 20, 10);
+  buttonOne.position(170, 20);
+  buttonOne.mousePressed(setGraphBound);
   
+  reset = createButton('reset');
   reset.position(20, 780);
-  
-  buttonTwo.mousePressed(setGraphBound);
 }
 
 
+function mousePressed() {
+  var x = map(mouseX, 0, width, 0, 1);
+  var y = map(mouseY, 0, height, 1, 0);
+  if (x>=0 && x<=1 && y>=0 && y<=1) {
+    var point = createVector(x, y);
+    data.push(point);
+  }
+}
 
 function draw() {
   buttonOne.mousePressed(plotPoint);
   reset.mousePressed(restart);
-  
-  
   if (data.length > 1) {
     gradientDescent();
     drawLine();
@@ -47,17 +52,7 @@ function draw() {
 
 
 function restart(){
-  //数据清零
   data = [];
-  background(255);
-  
-  //draw a coordinate plane
-  stroke(3);
-  fill(0);
-  line(50, 50, 50, 750);
-  line(50, 750, 750, 750);
-  text(max_X, 730, 760);
-  text(max_Y, 25, 60);
 }
 
 
@@ -74,14 +69,9 @@ function clearBoard(){
   text(max_Y, 25, 60);
   
   plotPoint();
-  
-  //text above the coordinate input
   stroke(0);
   fill(0);
   text("input your value as x,y", 20, 10);
-  
-  
-  //text above the learning rate input
   text("input your learning rate", 500, 10);
   text("current learning rate: " + learningRate, 500, 50);
   text("m = " + m, 500, 70);
@@ -93,21 +83,10 @@ function clearBoard(){
 function setGraphBound(){
   //seperate the max_X & max_X from the input--------------
   let coordinate = split(input.value(), ',');
-
   max_X = float(coordinate[0]);
   max_Y = float(coordinate[1]);
-  
-  // //debug
-  // console.log(max_X);
-  // console.log(max_Y);
-  
-  //clear the input box & put a new button in
   input.value('');
-  buttonTwo.position(-100, -100);
   buttonOne.position(170, 20);
-  
-  //add the learning rate input option
-  
   clearBoard();
 }
 
@@ -117,43 +96,18 @@ function setGraphBound(){
 
 
 function plotPoint() {
-  //seperate the x & y from the input--------------
   let coordinate = split(input.value(), ',');
-
   var x = float(coordinate[0]);
   var y = float(coordinate[1]);
   var point = createVector(x, y);
-
-  //store the *actual data* in a vector array
   data.push(point);
-
-
-//   //plot the points--------------------------------
-//   background(255);
-
-//   //draw a coordinate plane
-//   stroke(3);
-//   fill(0);
-//   line(50, 50, 50, 750);
-//   line(50, 750, 750, 750);
-//   text(max_X, 730, 760);
-//   text(max_Y, 25, 60);
-
-  
-  //draw in the points
   fill(200, 0, 200);
   for (var i = 0; i < data.length; i++) {
-    //fit the points to the coordinate plane
     var map_X = map (data[i].x, 0, max_X, 50, 750);
     var map_Y = map (data[i].y, 0, max_Y, 750, 50);
     ellipse(map_X, map_Y, 8, 8);
   }
-
-  //clear the input box & reset the text
   input.value('');
-  // stroke(0);
-  // fill(0);
-  // text("input your value as x,y", 20, 10);
 }
 
 
