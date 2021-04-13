@@ -1,7 +1,7 @@
 let input, buttonOne, buttonTwo, reset;
 
 var data = [];
-var m = 1;
+var m = 0;
 var b = 0;
 var max_X;
 var max_Y;
@@ -15,15 +15,15 @@ function setup() {
   input = createInput();
   input.position(20, 20);
   
-  //buttonOne = createButton('submit');
-  //buttonOne.position(-100, -100);
-  
   buttonOne = createButton('submit');
+  buttonOne.position(100, 100);
+  
+  buttonTwo = createButton('submit');
   stroke(0);
   fill(0);
   text("input the limit of your graph as max_X, max_Y", 20, 10);
-  buttonOne.position(170, 20);
-  buttonOne.mousePressed(setGraphBound);
+  buttonTwo.position(170, 20);
+  buttonTwo.mousePressed(setGraphBound);
   
   reset = createButton('reset');
   reset.position(20, 780);
@@ -47,9 +47,6 @@ function draw() {
     drawLine();
   }
 }
-
-
-
 
 function restart(){
   data = [];
