@@ -10,7 +10,7 @@ var learningRate = 0.001;
 
 function setup() {
   createCanvas(800, 800);
-  background(255);
+  background(20);
   stroke(0);
   fill(0);
   text("input the limit of your graph as max_X, max_Y", 20, 10);
