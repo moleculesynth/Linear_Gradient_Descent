@@ -1,1 +1,1 @@
-# Linear_Gradient_Descent
+# SL's Gradient Descent Demonstration Page
