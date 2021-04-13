@@ -11,7 +11,10 @@ var learningRate = 0.001;
 function setup() {
   createCanvas(800, 800);
   background(255);
-  
+  stroke(0);
+  fill(0);
+  text("input the limit of your graph as max_X, max_Y", 20, 10);
+
   input = createInput();
   input.position(20, 20);
   
@@ -19,9 +22,6 @@ function setup() {
   buttonOne.position(100, 100);
   
   buttonTwo = createButton('submit');
-  stroke(0);
-  fill(0);
-  text("input the limit of your graph as max_X, max_Y", 20, 10);
   buttonTwo.position(170, 20);
   buttonTwo.mousePressed(setGraphBound);
   
@@ -40,8 +40,15 @@ function mousePressed() {
 }
 
 function draw() {
-  buttonOne.mousePressed(plotPoint);
-  reset.mousePressed(restart);
+  background(20);
+  for (var i = 0; i < data.length; i++) {
+    var x = map(data[i].x, 0, 1, 0, width);
+    var y = map(data[i].y, 0, 1, height, 0);
+    fill(214,40,40);
+    stroke(214,40,40);
+    heart(x, y, 8, 8);
+  }
+
   if (data.length > 1) {
     gradientDescent();
     drawLine();
@@ -52,12 +59,8 @@ function restart(){
   data = [];
 }
 
-
-
 function clearBoard(){
   background(255);
-  
-  //draw a coordinate plane
   stroke(3);
   fill(0);
   line(50, 50, 50, 750);
