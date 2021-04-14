@@ -1,7 +1,17 @@
-html, body {
-  margin: 0;
-  padding: 0;
+body {
+	background-color: coral;
+	max-width: 800px;
+	margin: auto;
+	text-align: center;
 }
-canvas {
-  display: block;
+
+h1 {
+	color: white;
+	font-family: sans-serif;
 }
+
+p {
+	color: white;
+    font-family: sans-serif;
+}
+
